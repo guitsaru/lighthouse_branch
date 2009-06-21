@@ -9,7 +9,7 @@ begin
     gem.email = "guitsaru@gmail.com"
     gem.homepage = "http://github.com/guitsaru/lighthouse_branch"
     gem.authors = ["Matt Pruitt"]
-    gem.rubyforge_project = "lighthouse_branch"
+    gem.rubyforge_project = "lh-branch"
     gem.add_dependency('grit', '>= 1.1.1')
     gem.add_dependency('Caged-lighthouse-api', '>= 1.0.0')
   end

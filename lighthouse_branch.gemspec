@@ -23,13 +23,14 @@ Gem::Specification.new do |s|
      "VERSION",
      "bin/lh-branch",
      "lib/lighthouse_branch.rb",
+     "lighthouse_branch.gemspec",
      "test/test_helper.rb",
      "test/test_lighthouse_branch.rb"
   ]
   s.homepage = %q{http://github.com/guitsaru/lighthouse_branch}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{lighthouse_branch}
+  s.rubyforge_project = %q{lh-branch}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Easily manage branches based off lighthouse tickets.}
   s.test_files = [
