@@ -1,5 +1,9 @@
 = lighthouse_branch
 
+= Installation
+
+    sudo gem install lighthouse_branch
+
 = Setup
 
 Add your Lighthouse project settings to your repo's git config.
