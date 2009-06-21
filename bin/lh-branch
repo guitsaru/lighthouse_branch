@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'lighthouse_branch')
+require 'grit'
+require 'pp'
+
+def get_command(args)
+  case args[0]
+  when nil
+    return nil
+  when /push/i
+    args.shift
+    return 'push'
+  when /pull/i
+    args.shift
+    return 'pull'
+  when /merge/i
+    args.shift
+    return 'merge'
+  when /checkout/i
+    args.shift
+    return 'checkout'
+  when /delete/i
+    args.shift
+    return 'delete'
+  when /resolve/i
+    args.shift
+    return 'resolve'
+  else return 'branch'
+  end
+end
+
+def get_lighthouse_branch
+  repo = Grit::Repo.new(Dir.pwd)
+
+  lighthouse_account = repo.config["lighthouse.account"]
+  lighthouse_token = repo.config["lighthouse.token"]
+  lighthouse_project = repo.config["lighthouse.project"]
+  
+  if lighthouse_account.nil? || lighthouse_token.nil? || lighthouse_project.nil?
+    puts "You must add your lighthouse account info to git config:"
+    puts "git config lighthouse.account [lighthouse account subdomain]"
+    puts "git config lighthouse.token [lighthouse API token]"
+    puts "git config lighthouse.project [lighthouse project id]"
+    exit
+  end
+  
+  return LighthouseBranch.new(lighthouse_account, lighthouse_token, lighthouse_project)
+end
+
+args = ARGV
+
+command = get_command(args)
+ticket_id = args.shift.to_i
+command = nil if ticket_id == 0
+
+lighthouse_branch = get_lighthouse_branch
+
+case command
+when nil
+  puts "Usage:"
+  puts "lh-branch [ticket_id]"
+  puts "lh-branch push [ticket_id] [remote name]"
+  puts "lh-branch pull [ticket_id] [remote name]"
+  puts "lh-branch merge [ticket_id]"
+  puts "lh-branch checkout [ticket_id]"
+  puts "lh-branch delete [ticket_id]"
+  puts "lh-branch resolve 1 [message]"
+when 'branch'
+  if args.size != 0
+    puts "Usage: lh-branch [ticket_id]"
+    exit
+  end
+  system("git checkout -b #{lighthouse_branch.branch_name(ticket_id)}")
+when 'delete'
+  if args.size != 0
+    puts "Usage: lh-branch delete [ticket_id]"
+    exit
+  end
+  system("git branch -d #{lighthouse_branch.branch_name(ticket_id)}")
+when 'push'
+  if args.size != 1
+    puts "Usage: lh-branch push [ticket_id] [remote name]"
+    exit
+  end
+  system("git push #{args.shift} #{lighthouse_branch.branch_name(ticket_id)}")
+when 'pull'
+  if args.size != 1
+    puts "Usage: lh-branch pull [ticket_id] [remote name]"
+    exit
+  end
+  system("git pull #{args.shift} #{lighthouse_branch.branch_name(ticket_id)}")
+when 'checkout'
+  if args.size != 0
+    puts "Usage: lh-branch checkout [ticket_id]"
+    exit
+  end
+  system("git checkout #{lighthouse_branch.branch_name(ticket_id)}")
+when 'merge'
+  if args.size != 0
+    puts "Usage: lh-branch merge [ticket_id]"
+    exit
+  end
+  system("git merge #{lighthouse_branch.branch_name(ticket_id)}")
+when 'resolve'
+  if args.size != 1
+    puts "Usage: lh-branch resolve 1 [message]"
+    exit
+  end
+  system("git commit -a -m \"#{args.shift}\n\n[##{ticket_id} state:resolved]\"")
+end
