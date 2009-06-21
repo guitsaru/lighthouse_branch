@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "lighthouse_branch"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Easily manage branches based off lighthouse tickets.}
     gem.email = "guitsaru@gmail.com"
     gem.homepage = "http://github.com/guitsaru/lighthouse_branch"
     gem.authors = ["Matt Pruitt"]
     gem.rubyforge_project = "lighthouse_branch"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency('grit', '>= 1.1.1')
+    gem.add_dependency('Caged-lighthouse-api', '>= 1.0.0')
   end
 
   Jeweler::RubyforgeTasks.new

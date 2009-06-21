@@ -3,7 +3,6 @@
 require 'rubygems'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'lighthouse_branch')
 require 'grit'
-require 'pp'
 
 def get_command(args)
   case args[0]
