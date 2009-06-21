@@ -10,33 +10,26 @@ Add your Lighthouse project settings to your repo's git config.
 
 = Usage
 
-lh-branch [ticket_id]:
-Creates a branch based on the ticket name.
-lh-branch 1 #=> git checkout -b 1-ticket-title
+lh-branch [ticket_id]: Creates a branch based on the ticket name.
+    lh-branch 1 #=> git checkout -b 1-ticket-title
 
-lh-branch push [ticket_id] [remote name]:
-Pushes the ticket's branch to the named remote.
-lh-branch 1 origin #=> git push origin 1-ticket-title
+lh-branch push [ticket_id] [remote name]: Pushes the ticket's branch to the named remote.
+    lh-branch 1 origin #=> git push origin 1-ticket-title
 
-lh-branch pull [ticket_id] [remote name]:
-Pulls the ticket's branch from the named remote.
-lh-branch 1 origin #=> git pull origin 1-ticket-title
+lh-branch pull [ticket_id] [remote name]: Pulls the ticket's branch from the named remote.
+    lh-branch 1 origin #=> git pull origin 1-ticket-title
 
-lh-branch merge [ticket_id]:
-Merges the ticket's branch with the current branch.
-lh-branch merge 1 #=> git merge 1-ticket-title
+lh-branch merge [ticket_id]: Merges the ticket's branch with the current branch.
+    lh-branch merge 1 #=> git merge 1-ticket-title
 
-lh-branch checkout [ticket_id]:
-Checks out the ticket's branch, making it the current branch.
-lh-branch checkout 1 #=> git checkout 1-ticket-title
+lh-branch checkout [ticket_id]: Checks out the ticket's branch, making it the current branch.
+    lh-branch checkout 1 #=> git checkout 1-ticket-title
 
-lh-branch delete [ticket_id]:
-Deletes the ticket's branch.
-lh-branch delete 1 #=> git branch -d 1-ticket-title
+lh-branch delete [ticket_id]: Deletes the ticket's branch.
+    lh-branch delete 1 #=> git branch -d 1-ticket-title
 
-lh-branch resolve 1 [message]:
-Creates a commit that will mark the ticket resolved.
-lh-branch resolve 1 "Fixed the bug." #=> git commit -a -m "Fixed the bug\n\n[#1 state:resolved]"
+lh-branch resolve 1 [message]: Creates a commit that will mark the ticket resolved.
+    lh-branch resolve 1 "Fixed the bug." #=> git commit -a -m "Fixed the bug\n\n[#1 state:resolved]"
 
 == Copyright
 
