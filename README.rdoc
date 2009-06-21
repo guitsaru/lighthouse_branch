@@ -1,5 +1,15 @@
 = lighthouse_branch
 
+= Setup
+
+Add your Lighthouse project settings to your repo's git config.
+
+    git config lighthouse.account [lighthouse account subdomain]
+    git config lighthouse.token [lighthouse API token]
+    git config lighthouse.project [lighthouse project id]
+
+= Usage
+
 lh-branch [ticket_id]:
 Creates a branch based on the ticket name.
 lh-branch 1 #=> git checkout -b 1-ticket-title
