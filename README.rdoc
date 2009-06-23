@@ -28,6 +28,9 @@ lh-branch checkout [ticket_id]: Checks out the ticket's branch, making it the cu
 lh-branch delete [ticket_id]: Deletes the ticket's branch.
     lh-branch delete 1 #=> git branch -d 1-ticket-title
 
+lh-branch delete_remote [ticket_id] [remote name]: Deletes the ticket's branch on the remote server.
+    lh-branch delete_remote 1 origin #=> git push origin :1-ticket-title
+
 lh-branch commit 1 [message]: Creates a commit that references the ticket
     lh-branch commit 1 "Made some changes" #=> git commit -a -m "Made some changes\n\n[#1]"
 
