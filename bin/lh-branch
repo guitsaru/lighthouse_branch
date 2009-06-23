@@ -51,7 +51,6 @@ end
 args = ARGV
 
 command = get_command(args)
-ticket_id = args.shift.to_i
 command = nil if ticket_id == 0
 
 lighthouse_branch = get_lighthouse_branch
