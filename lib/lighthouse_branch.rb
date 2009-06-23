@@ -54,7 +54,9 @@ class LighthouseBranch
     puts "lh-branch pull [ticket_id] [remote name]"
     puts "lh-branch merge [ticket_id]"
     puts "lh-branch checkout [ticket_id]"
+    puts "lh-branch commit [ticket_id] [message]"
     puts "lh-branch delete [ticket_id]"
-    puts "lh-branch resolve 1 [message]"
+    puts "lh-branch delete_remote [ticket_id] [remote name]"
+    puts "lh-branch resolve [ticket_id] [message]"
   end
 end

@@ -11,13 +11,25 @@ module Command
       @@commands.merge!(name => self)
     end
     
+    def self.number_of_arguments(arguments)
+      self.class_eval("@@number_of_arguments = #{arguments}")
+    end
+    
+    def self.usage(usage)
+      self.class_eval("@@usage = \"#{usage}\"")
+    end
+    
     def self.commands
       return @@commands
     end
     
     def self.run(lighthouse_branch, ticket, args)
       return unless defined?(:command_string)
-      system(self.command_string(lighthouse_branch, ticket, args))
+      unless args.size == (self.class_eval("@@number_of_arguments") || 0)
+        puts self.class_eval("@@usage") and exit
+      else
+        system(self.command_string(lighthouse_branch, ticket, args))
+      end
     end
     
     def self.command_regexes
