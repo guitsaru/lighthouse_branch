@@ -1,7 +1,7 @@
 module Command
   class Update < Command::Base
     command_name :update
-    number_of_arguments (0..2)
+    number_of_arguments (1..2)
     
     usage "lh-branch update [ticket_id] [message]"
     
