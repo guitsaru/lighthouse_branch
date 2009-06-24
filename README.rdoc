@@ -13,10 +13,10 @@ Add your Lighthouse project settings to your repo's git config.
 lh-branch [ticket_id]: Creates a branch based on the ticket name.
     lh-branch 1 #=> git checkout -b 1-ticket-title
 
-lh-branch push [ticket_id] [remote name]: Pushes the ticket's branch to the named remote.
+lh-branch push [ticket_id] [remote_name]: Pushes the ticket's branch to the named remote.
     lh-branch 1 origin #=> git push origin 1-ticket-title
 
-lh-branch pull [ticket_id] [remote name]: Pulls the ticket's branch from the named remote.
+lh-branch pull [ticket_id] [remote_name]: Pulls the ticket's branch from the named remote.
     lh-branch 1 origin #=> git pull origin 1-ticket-title
 
 lh-branch merge [ticket_id]: Merges the ticket's branch with the current branch.
@@ -28,7 +28,7 @@ lh-branch checkout [ticket_id]: Checks out the ticket's branch, making it the cu
 lh-branch delete [ticket_id]: Deletes the ticket's branch.
     lh-branch delete 1 #=> git branch -d 1-ticket-title
 
-lh-branch delete_remote [ticket_id] [remote name]: Deletes the ticket's branch on the remote server.
+lh-branch delete_remote [ticket_id] [remote_name]: Deletes the ticket's branch on the remote server.
     lh-branch delete_remote 1 origin #=> git push origin :1-ticket-title
 
 lh-branch commit [ticket_id] [message]: Creates a commit that references the ticket

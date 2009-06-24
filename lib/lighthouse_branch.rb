@@ -5,13 +5,11 @@ require File.join(File.dirname(__FILE__), 'lighthouse_branch', 'command', 'base'
 Dir.glob(File.join(File.dirname(__FILE__), 'lighthouse_branch', 'commands', '**.rb')).each { |command| require command }
 
 class LighthouseBranch
-  def initialize(project)
-    @project = project
+  def self.repo
+    @repo ||= Grit::Repo.new(Dir.pwd)
   end
   
   def self.get_lighthouse_account
-    repo = Grit::Repo.new(Dir.pwd)
-
     Lighthouse.account = repo.config["lighthouse.account"]
     Lighthouse.token = repo.config["lighthouse.token"]
     
@@ -30,33 +28,47 @@ class LighthouseBranch
     Lighthouse::Ticket.find(id, :params => { :project_id => @project.id })
   end
   
-  def branch_name(id)
-    "#{id}-#{ticket(id).title.gsub(/[^\w ]/, '').gsub(/[^a-z0-9]+/i, '-').downcase}"
+  def self.branch_name
+    unless @branch_name
+      if(Float(args.first) rescue false)
+        ticket_id = args.shift
+        @branch_name = "#{ticket_id}-#{ticket(ticket_id).title.gsub(/[^\w ]/, '').gsub(/[^a-z0-9]+/i, '-').downcase}"
+      else
+        @branch_name = repo.head.name
+      end
+    end
+    
+    return @branch_name
   end
   
   def self.invoke(args)
     get_lighthouse_account
     
+    command = :default
     if Command::Base.command_regexes.select{ |command| args.first =~ command }.empty?
-      unless (true if Float(args.first) rescue false)
+      ticket_id = branch_name.to_i
+      if ticket_id == 0
         usage
         exit
       end
+    else
+      command = args.shift
+      ticket_id = branch_name.to_i
     end
     
-    Command::Base.invoke(args, new(@project))
+    Command::Base.invoke(command, branch_name, ticket_id, args)
   end
   
   def self.usage
     puts "Usage:"
-    puts "lh-branch [ticket_id]"
-    puts "lh-branch push [ticket_id] [remote name]"
-    puts "lh-branch pull [ticket_id] [remote name]"
+    puts "lh-branch [ticket_id] ([remote_name])"
+    puts "lh-branch push [ticket_id] [remote_name]"
+    puts "lh-branch pull [ticket_id] [remote_name]"
     puts "lh-branch merge [ticket_id]"
     puts "lh-branch checkout [ticket_id]"
-    puts "lh-branch commit [ticket_id] [message]"
-    puts "lh-branch delete [ticket_id]"
-    puts "lh-branch delete_remote [ticket_id] [remote name]"
+    puts "lh-branch update [ticket_id] [message] ([extra])"
+    puts "lh-branch delete [ticket_id] ([remote_name])"
+    puts "lh-branch delete_remote [ticket_id] [remote_name]"
     puts "lh-branch resolve [ticket_id] [message]"
   end
 end

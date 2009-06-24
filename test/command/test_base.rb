@@ -1,5 +1,11 @@
 require 'test_helper'
 
+module Command
+  class Base
+    @@commands = {}
+  end
+end
+
 class DefaultCommand < Command::Base
   default_command
 end
@@ -22,7 +28,7 @@ class TestCommandBase < Test::Unit::TestCase
   end
   
   should "have a list of regexes to match" do
-    regexes = [/named/i, /default/i]
-    assert_equal(regexes, Command::Base.command_regexes)
+    assert(Command::Base.command_regexes.include?(/named/i))
+    assert(Command::Base.command_regexes.include?(/default/i))
   end
 end

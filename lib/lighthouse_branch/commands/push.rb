@@ -3,10 +3,10 @@ module Command
     command_name :push
     number_of_arguments 1
     
-    usage "lh-branch push [ticket_id] [remote name]"
+    usage "lh-branch push [ticket_id] [remote_name]"
     
-    def self.command_string(lighthouse_branch, ticket_id, args)
-      "git push #{args.shift} #{lighthouse_branch.branch_name(ticket_id)}"
+    def self.command_string(branch_name, ticket_id, args)
+      "git push #{args.shift} #{branch_name}"
     end
   end
 end

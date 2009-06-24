@@ -5,8 +5,8 @@ module Command
     
     usage "lh-branch merge [ticket_id]"
     
-    def self.command_string(lighthouse_branch, ticket_id, args)
-      "git merge #{lighthouse_branch.branch_name(ticket_id)}"
+    def self.command_string(branch_name, ticket_id, args)
+      "git merge #{branch_name}"
     end
   end
 end

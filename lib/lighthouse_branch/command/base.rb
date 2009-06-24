@@ -15,8 +15,12 @@ module Command
       self.class_eval("@@number_of_arguments = #{arguments}")
     end
     
-    def self.usage(usage)
-      self.class_eval("@@usage = \"#{usage}\"")
+    def self.usage(usage=nil)
+      if usage
+        return self.class_eval("@@usage = \"#{usage}\"")
+      else
+        return self.class_eval("@@usage")
+      end
     end
     
     def self.commands
@@ -25,10 +29,20 @@ module Command
     
     def self.run(lighthouse_branch, ticket, args)
       return unless defined?(:command_string)
-      unless args.size == (self.class_eval("@@number_of_arguments") || 0)
-        puts self.class_eval("@@usage") and exit
-      else
+      
+      number_of_arguments = (self.class_eval("@@number_of_arguments") || 0)
+      
+      correct_arguments = false
+      if number_of_arguments.is_a?(Range)
+        correct_arguments = number_of_arguments.member?(args.size)
+      elsif number_of_arguments.is_a?(Fixnum)
+        correct_arguments = number_of_arguments == args.size
+      end
+      
+      if correct_arguments
         system(self.command_string(lighthouse_branch, ticket, args))
+      else
+        puts self.usage and exit
       end
     end
     
@@ -36,18 +50,14 @@ module Command
       @@commands.keys.map { |k| /#{k}/i }
     end
     
-    def self.invoke(args, lighthouse_branch)
-      command = @@commands[args[0].to_s.downcase.to_sym]
-      if command
-        args.shift
-      else
+    def self.invoke(command, branch_name, ticket_id, args)
+      command = @@commands[command.to_s.downcase.to_sym]
+      if !command
         command = @@commands[:default]
       end
       
-      ticket_id = args.shift.to_i
-      
       return nil if ticket_id <= 0
-      command.run(lighthouse_branch, ticket_id, args)
+      command.run(branch_name, ticket_id, args)
     end
   end
 end
