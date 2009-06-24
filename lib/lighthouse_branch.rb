@@ -24,14 +24,14 @@ class LighthouseBranch
     end
   end
   
-  def ticket(id)
+  def self.ticket(id)
     Lighthouse::Ticket.find(id, :params => { :project_id => @project.id })
   end
   
-  def self.branch_name
+  def self.branch_name(args)
     unless @branch_name
       if(Float(args.first) rescue false)
-        ticket_id = args.shift
+        ticket_id = args.shift.to_i
         @branch_name = "#{ticket_id}-#{ticket(ticket_id).title.gsub(/[^\w ]/, '').gsub(/[^a-z0-9]+/i, '-').downcase}"
       else
         @branch_name = repo.head.name
@@ -46,17 +46,19 @@ class LighthouseBranch
     
     command = :default
     if Command::Base.command_regexes.select{ |command| args.first =~ command }.empty?
-      ticket_id = branch_name.to_i
+      branch = branch_name(args)
+      ticket_id = branch.to_i
       if ticket_id == 0
         usage
         exit
       end
     else
       command = args.shift
-      ticket_id = branch_name.to_i
+      branch = branch_name(args)
+      ticket_id = branch.to_i
     end
     
-    Command::Base.invoke(command, branch_name, ticket_id, args)
+    Command::Base.invoke(command, branch, ticket_id, args)
   end
   
   def self.usage

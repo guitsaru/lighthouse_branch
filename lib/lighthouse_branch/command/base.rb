@@ -36,7 +36,7 @@ module Command
       if number_of_arguments.is_a?(Range)
         correct_arguments = number_of_arguments.member?(args.size)
       elsif number_of_arguments.is_a?(Fixnum)
-        correct_arguments = number_of_arguments == args.size
+        correct_arguments = (number_of_arguments == args.size)
       end
       
       if correct_arguments
