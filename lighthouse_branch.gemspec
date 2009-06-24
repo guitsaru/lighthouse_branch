@@ -2,14 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lighthouse_branch}
-  s.version = "1.0.0"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Pruitt"]
-  s.date = %q{2009-06-20}
-  s.default_executable = %q{lh-branch}
+  s.date = %q{2009-06-23}
   s.email = %q{guitsaru@gmail.com}
-  s.executables = ["lh-branch"]
+  s.executables = ["lh-branch", "lhb"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -22,10 +21,30 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/lh-branch",
+     "bin/lhb",
      "lib/lighthouse_branch.rb",
+     "lib/lighthouse_branch/command/base.rb",
+     "lib/lighthouse_branch/commands/branch.rb",
+     "lib/lighthouse_branch/commands/checkout.rb",
+     "lib/lighthouse_branch/commands/commit.rb",
+     "lib/lighthouse_branch/commands/delete.rb",
+     "lib/lighthouse_branch/commands/merge.rb",
+     "lib/lighthouse_branch/commands/pull.rb",
+     "lib/lighthouse_branch/commands/push.rb",
+     "lib/lighthouse_branch/commands/resolve.rb",
+     "lib/lighthouse_branch/commands/update.rb",
      "lighthouse_branch.gemspec",
-     "test/test_helper.rb",
-     "test/test_lighthouse_branch.rb"
+     "test/command/test_base.rb",
+     "test/commands/test_branch.rb",
+     "test/commands/test_checkout.rb",
+     "test/commands/test_commit.rb",
+     "test/commands/test_delete.rb",
+     "test/commands/test_merge.rb",
+     "test/commands/test_pull.rb",
+     "test/commands/test_push.rb",
+     "test/commands/test_resolve.rb",
+     "test/commands/test_update.rb",
+     "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/guitsaru/lighthouse_branch}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -34,8 +53,17 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Easily manage branches based off lighthouse tickets.}
   s.test_files = [
-    "test/test_helper.rb",
-     "test/test_lighthouse_branch.rb"
+    "test/command/test_base.rb",
+     "test/commands/test_branch.rb",
+     "test/commands/test_checkout.rb",
+     "test/commands/test_commit.rb",
+     "test/commands/test_delete.rb",
+     "test/commands/test_merge.rb",
+     "test/commands/test_pull.rb",
+     "test/commands/test_push.rb",
+     "test/commands/test_resolve.rb",
+     "test/commands/test_update.rb",
+     "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then

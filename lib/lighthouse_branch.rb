@@ -60,7 +60,7 @@ class LighthouseBranch
   end
   
   def self.usage
-    puts "Usage:"
+    puts "If ticket_id is not supplied, the ticket will be determined by the current branch name."
     puts "lh-branch [ticket_id] ([remote_name])"
     puts "lh-branch push [ticket_id] [remote_name]"
     puts "lh-branch pull [ticket_id] [remote_name]"
