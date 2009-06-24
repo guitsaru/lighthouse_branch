@@ -33,9 +33,6 @@ lh-branch delete [ticket_id] ([remote_name]): Deletes the ticket's branch.
 If remote_name is given, the branch will also be deleted on remote.
     lh-branch delete 1 #=> git branch -d 1-ticket-title
 
-lh-branch delete_remote [ticket_id] [remote_name]: Deletes the ticket's branch on the remote server.
-    lh-branch delete_remote 1 origin #=> git push origin :1-ticket-title
-
 lh-branch update [ticket_id] [message] ([extra]): Creates a commit that references the ticket
 Extra is any extra lighthouse commands
     lh-branch commit 1 "Made some changes" #=> git commit -a -m "Made some changes\n\n[#1 tagged:'branch:1-ticket-title']"
