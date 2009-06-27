@@ -22,10 +22,10 @@ If remote_name is given, the branch will be pushed to the remote.
     lh-branch 1 #=> git checkout -b 1-ticket-title
 
 lh-branch push [ticket_id] [remote_name]: Pushes the ticket's branch to the named remote.
-    lh-branch 1 origin #=> git push origin 1-ticket-title
+    lh-branch push 1 origin #=> git push origin 1-ticket-title
 
 lh-branch pull [ticket_id] [remote_name]: Pulls the ticket's branch from the named remote.
-    lh-branch 1 origin #=> git pull origin 1-ticket-title
+    lh-branch pull 1 origin #=> git pull origin 1-ticket-title
 
 lh-branch merge [ticket_id]: Merges the ticket's branch with the current branch.
     lh-branch merge 1 #=> git merge 1-ticket-title
