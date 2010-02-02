@@ -11,7 +11,7 @@ begin
     gem.authors = ["Matt Pruitt"]
     gem.rubyforge_project = "lh-branch"
     gem.add_dependency('grit', '>= 1.1.1')
-    gem.add_dependency('Caged-lighthouse-api', '>= 1.0.0')
+    gem.add_dependency('lighthouse-api', '>= 1.0.0')
   end
 
   Jeweler::RubyforgeTasks.new
